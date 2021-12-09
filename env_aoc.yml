@@ -1,0 +1,16 @@
+name: aoc
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - jupyter
+  - more-itertools
+  - line_profiler
+  - memory_profiler
+  - pipdeptree
+  - requests
+  - seaborn
+  - wheel
+#  - pip
+#  - pip:
+#    - -r requirements.txt
