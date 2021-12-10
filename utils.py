@@ -14,7 +14,7 @@ from functools import lru_cache
 from statistics import mean, median, mode, stdev, variance
 from itertools import (permutations, combinations, chain, cycle, product, islice,
                        takewhile, zip_longest, count as count_from, tee, pairwise)
-from more_itertools import partition
+from more_itertools import partition, sliding_window
 from heapq import heappop, heappush
 #from numba import jit
 from dataclasses import dataclass
