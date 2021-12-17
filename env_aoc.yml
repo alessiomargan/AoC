@@ -11,6 +11,9 @@ dependencies:
   - requests
   - seaborn
   - wheel
-#  - pip
-#  - pip:
+  - pip
+  - pip:
 #    - -r requirements.txt
+    - advent-of-code-data
+    - browser-cookie3
+  
