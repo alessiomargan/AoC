@@ -1,0 +1,40 @@
+Timer unit: 1e-06 s
+
+Total time: 0 s
+File: /tmp/ipykernel_9106/4163656211.py
+Function: s3 at line 9
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+     9                                           def s3(S: list) -> list :
+    10                                               ''' using trivial for '''
+    11                                               res = list()
+    12                                               for s in S :
+    13                                                   if s == 0 :
+    14                                                       res.append(6)
+    15                                                   else :
+    16                                                       res.append(s-1)
+    17                                               return res 
+
+Total time: 4.12484 s
+File: /tmp/ipykernel_9106/4163656211.py
+Function: population at line 33
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+    33                                           def population (in_s: list, days: int, S_func: callable =s1, verbose: bool =False) -> int :
+    34         1          5.0      5.0      0.0      verbose = False
+    35         1          2.0      2.0      0.0      curr_state = in_s
+    36         1        253.0    253.0      0.0      print (f"S_func {S_func.__name__} {S_func.__doc__}" )
+    37       141        194.0      1.4      0.0      while days > 0 :
+    38       140        108.0      0.8      0.0          if verbose :
+    39                                                       print (f"...days {days} len(curr_state) = {len(curr_state)}")
+    40       140     442333.0   3159.5     10.7          c = Counter(curr_state)
+    41                                                   # Each day, a 0 becomes a 6 and adds a new 8 to the end of the list
+    42                                                   #--- OLD ==> too much time for mem allocation/deallocation of huge lists ---#
+    43       140    3616454.0  25831.8     87.7          next_state = list(S_func(curr_state))
+    44                                                   # count 0s and append 8s list
+    45       140      65294.0    466.4      1.6          curr_state = next_state + c[0]*[8]
+    46       140        189.0      1.4      0.0          days -= 1
+    47                                                   
+    48         1          4.0      4.0      0.0      return len(curr_state)
