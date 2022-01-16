@@ -16,4 +16,5 @@ dependencies:
 #    - -r requirements.txt
     - advent-of-code-data
     - browser-cookie3
+    - anytree
   
