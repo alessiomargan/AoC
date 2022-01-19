@@ -67,4 +67,28 @@ def chunks(iterable, n):
         chunk = tuple(islice(it, n))
         if not chunk:
             return
-        yield chunk   
+        yield chunk
+
+def get_adj(i,j,M,diag=True):
+    """
+     i-1,j-1 | i-1,j | i-1,j+1
+    --------------------------
+       i,j-1 | i , j |   i,j+1
+    --------------------------
+     i+1,j-1 | i+1,j | i+1,j+1  
+    """
+    I,J = M.shape
+    rangeI = range(I)
+    rangeJ = range(J)
+    aix = list()
+    adj = dict()
+    exclude = set((0,0))
+    if not diag :
+        exclude |= set([(-1,-1),(-1,1),(1,1),(1,-1)])
+    for (di,dj) in product(range(-1,2),repeat=2) :
+        ii,jj = i+di,j+dj  
+        if ( ii in rangeI and jj in rangeJ and (di,dj) not in exclude ):
+            aix.append((ii,jj)) 
+    for ij in aix :
+        adj[ij] = M[ij]
+    return adj
