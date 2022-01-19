@@ -1,0 +1,22 @@
+Timer unit: 1e-06 s
+
+Total time: 37.405 s
+File: /tmp/ipykernel_10261/3447897485.py
+Function: get_polymer at line 1
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+     1                                           def get_polymer(templ_poly: str, rules : dict, step):
+     2         1          1.0      1.0      0.0      templ = templ_poly
+     3         1          1.0      1.0      0.0      polymer = ""
+     4         1          1.0      1.0      0.0      cnt = 0
+     5        24         17.0      0.7      0.0      while cnt < step :
+     6        23         28.0      1.2      0.0          cnt += 1
+     7        23         24.0      1.0      0.0          polymer = templ[0]
+     8  25165844    8649697.0      0.3     23.1          for p1,p2 in pairwise(templ):
+     9  25165821   12225418.0      0.5     32.7              k = "".join((p1,p2))
+    10  25165821   16525521.0      0.7     44.2              polymer += "".join((rules[k],p2))
+    11        23       4178.0    181.7      0.0          print(f"step {cnt} len(polymer) {len(polymer)}")
+    12        23         87.0      3.8      0.0          templ = polymer
+    13                                               
+    14         1          0.0      0.0      0.0      return polymer
