@@ -69,7 +69,7 @@ def chunks(iterable, n):
             return
         yield chunk
 
-def get_adj(i,j,M,diag=True):
+def get_adj(i,j,M,diag=True) -> dict :
     """
      i-1,j-1 | i-1,j | i-1,j+1
     --------------------------
