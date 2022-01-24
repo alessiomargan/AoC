@@ -80,15 +80,12 @@ def get_adj(i,j,M,diag=True) -> dict :
     I,J = M.shape
     rangeI = range(I)
     rangeJ = range(J)
-    aix = list()
     adj = dict()
     exclude = set((0,0))
     if not diag :
         exclude |= set([(-1,-1),(-1,1),(1,1),(1,-1)])
     for (di,dj) in product(range(-1,2),repeat=2) :
-        ii,jj = i+di,j+dj  
-        if ( ii in rangeI and jj in rangeJ and (di,dj) not in exclude ):
-            aix.append((ii,jj)) 
-    for ij in aix :
-        adj[ij] = M[ij]
+        _i,_j = i+di,j+dj  
+        if ( _i in rangeI and _j in rangeJ and (di,dj) not in exclude ):
+            adj[(_i,_j)] = M[_i,_j]
     return adj
