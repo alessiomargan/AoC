@@ -69,6 +69,30 @@ def chunks(iterable, n):
             return
         yield chunk
 
+
+def get_adj_cross(i,j,M):
+    """
+          | i-1,j |
+    ------------------------
+    i,j-1 | i  ,j | i,j+1
+    ------------------------
+          | i+1,j |  
+    """
+    I,J = M.shape
+    I -= 1
+    J -= 1
+    adj = dict()
+    if i > 0:
+        adj[(i-1,j)] = M[i-1,j]
+    if i < I:
+        adj[(i+1,j)] = M[i+1,j]
+    if j > 0:
+        adj[(i,j-1)] = M[i,j-1]
+    if j < J:
+        adj[(i,j+1)] = M[i,j+1]
+    return adj
+
+
 def get_adj(i,j,M,diag=True) -> dict :
     """
      i-1,j-1 | i-1,j | i-1,j+1
@@ -81,7 +105,7 @@ def get_adj(i,j,M,diag=True) -> dict :
     rangeI = range(I)
     rangeJ = range(J)
     adj = dict()
-    exclude = set((0,0))
+    exclude = set([(0,0)])
     if not diag :
         exclude |= set([(-1,-1),(-1,1),(1,1),(1,-1)])
     for (di,dj) in product(range(-1,2),repeat=2) :
