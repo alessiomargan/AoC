@@ -3,6 +3,7 @@ channels:
   - conda-forge
 dependencies:
   - python=3.10
+  - numpy
   - jupyter
   - more-itertools
   - line_profiler

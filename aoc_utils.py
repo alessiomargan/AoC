@@ -10,11 +10,11 @@ import time
 import string
 from typing      import Generator, Iterator, Iterable
 from collections import Counter, defaultdict, namedtuple, deque, abc, OrderedDict, ChainMap
-from functools   import lru_cache
+from functools   import lru_cache, reduce
 from statistics  import mean, median, mode, stdev, variance
 from itertools   import (permutations, combinations, chain, cycle, product, islice,
                          takewhile, zip_longest, count as count_from, tee, pairwise)
-from more_itertools import partition, sliding_window, nth, grouper
+from more_itertools import partition, sliding_window, nth, grouper, quantify
 from heapq import heappop, heappush
 #from numba import jit
 from dataclasses import dataclass
@@ -28,9 +28,9 @@ bignum = 10 ** 100
 
 # ### FILE INPUT AND PARSING
 
-def get_in_file(day):
+def get_in_file(day,year):
     with open( f"input/input{day}.txt", "w") as f:
-        f.write( get_data(day=day, year=2021) )
+        f.write( get_data(day=day, year=year) )
 
 def parse(day, parser=str, sep='\n') -> tuple:
     """Split the day's input file into entries separated by `sep`, and apply `parser` to each."""
