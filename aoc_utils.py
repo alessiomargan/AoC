@@ -19,6 +19,7 @@ from more_itertools import partition, sliding_window, nth, grouper, quantify
 from heapq import heappop, heappush
 #from numba import jit
 from dataclasses import dataclass
+from dict_to_dataclass import DataclassFromDict, field_from_dict
 from aocd import get_data, submit
 
 # ### CONSTANTS
@@ -33,9 +34,9 @@ def get_in_file(day,year):
     with open( f"input/input{day}.txt", "w") as f:
         f.write( get_data(day=day, year=year) )
 
-def parse(day, parser=str, sep='\n') -> tuple:
+def parse(day, parser=str, sep='\n', file_template='input/input{}.txt') -> tuple:
     """Split the day's input file into entries separated by `sep`, and apply `parser` to each."""
-    entries = open(f'input/input{day}.txt').read().rstrip().split(sep)
+    entries = open(file_template.format(day)).read().rstrip().split(sep)
     return mapt(parser, entries)
     
 def Input(day, line_parser=str.strip, file_template='input/input{}.txt'):
