@@ -25,4 +25,9 @@ $(CONDA_ENV_NAME):
 rm-conda-env:  ## Remove the conda environment and the relevant file
 	conda remove --name $(CONDA_ENV_NAME) --all
 
-.PHONY: mk-conda-env rm-conda-env
+up-conda-env: $(CONDA_ENV_NAME)
+$(CONDA_ENV_NAME):
+	conda env update --file env_aoc.yml --prune
+	$(ACTIVATE_ENV)
+
+.PHONY: mk-conda-env rm-conda-env up-conda-env

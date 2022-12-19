@@ -17,6 +17,7 @@ dependencies:
 #    - -r requirements.txt
     - advent-of-code-data
     - browser-cookie3
-    - anytre
-    - dict-to-class
+    - anytree
+    - dict-to-dataclass
+    - parse
   

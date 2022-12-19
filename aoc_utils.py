@@ -8,8 +8,9 @@ import math
 import random
 import time
 import string
+import operator
 import pprint as pp
-from typing      import Generator, Iterator, Iterable
+from typing      import Generator, Iterator, Iterable, List, Tuple, Callable, Any
 from collections import Counter, defaultdict, namedtuple, deque, abc, OrderedDict, ChainMap
 from functools   import lru_cache, reduce
 from statistics  import mean, median, mode, stdev, variance
