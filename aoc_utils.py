@@ -10,7 +10,7 @@ import time
 import string
 import operator
 import pprint as pp
-from typing      import Generator, Iterator, Iterable, List, Tuple, Callable, Any
+from typing      import Generator, Iterator, Iterable, List, Tuple, Deque, Callable, Any
 from collections import Counter, defaultdict, namedtuple, deque, abc, OrderedDict, ChainMap
 from functools   import lru_cache, reduce
 from statistics  import mean, median, mode, stdev, variance
@@ -19,7 +19,7 @@ from itertools   import (permutations, combinations, chain, cycle, product, isli
 from more_itertools import partition, sliding_window, nth, grouper, quantify
 from heapq import heappop, heappush
 #from numba import jit
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from dict_to_dataclass import DataclassFromDict, field_from_dict
 from aocd import get_data, submit
 
