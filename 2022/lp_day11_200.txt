@@ -1,0 +1,63 @@
+Timer unit: 1e-09 s
+
+Total time: 0.0121306 s
+File: /tmp/ipykernel_9941/2791215050.py
+Function: spin_rounds at line 1
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+     1                                           def spin_rounds(rounds: int, part_a=True):
+     2         1     190946.0 190946.0      1.6      mnk_od = OrderedDict({k:Monkey.from_dict(v) for (k,v) in monkeys.items()})
+     3         1        112.0    112.0      0.0      round_count = 0
+     4       200      30305.0    151.5      0.2      while round_count < rounds :
+     5       200      32764.0    163.8      0.3          next_mnk_od = OrderedDict()
+     6       800     139574.0    174.5      1.2          while len(mnk_od) :
+     7       800     116941.0    146.2      1.0              next_round_items = deque()
+     8       800     208319.0    260.4      1.7              num,mnk = mnk_od.popitem(last=False)
+     9      3071     528014.0    171.9      4.4              while len(mnk.items) :
+    10                                                           # turn function pop items and count inspected items ...
+    11      3071    9537003.0   3105.5     78.6                  worry_level,throw_to = turn(mnk, part_a)
+    12                                                           #print("[{}] worry level {} throw to {}".format(num,worry_level,throw_to))
+    13      2000     248664.0    124.3      2.0                  if throw_to in mnk_od :
+    14      1071     217724.0    203.3      1.8                      mnk_od[throw_to].items.append(worry_level)
+    15      2000     198203.0     99.1      1.6                  elif throw_to in next_mnk_od :
+    16      2000     384077.0    192.0      3.2                      next_mnk_od[throw_to].items.append(worry_level)               
+    17                                                           else:
+    18                                                               next_round_items.append(worry_level)
+    19                                                       #
+    20       800     111366.0    139.2      0.9              mnk.items = next_round_items
+    21       800     111016.0    138.8      0.9              next_mnk_od[num] = mnk
+    22                                                       #pp.pprint(next_mnk_od)
+    23                                                   # 1 round completed
+    24       200      22687.0    113.4      0.2          round_count += 1
+    25       200      30453.0    152.3      0.3          assert(len(mnk_od) == 0)
+    26       200      22285.0    111.4      0.2          mnk_od = next_mnk_od
+    27                                               #
+    28         1        104.0    104.0      0.0      return mnk_od
+
+Total time: 0.00480808 s
+File: /tmp/ipykernel_9941/2927877839.py
+Function: turn at line 34
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+    34                                           def turn(mnk, part_a=True):
+    35      3071     217569.0     70.8      4.5      worry_level = 0
+    36      3071     670107.0    218.2     13.9      item = mnk.items.popleft()
+    37      3071     522836.0    170.2     10.9      mnk.cnt_inspected += 1 
+    38      3071     388040.0    126.4      8.1      _op1 = item if mnk.op1 == "old" else mnk.op1
+    39      3071     406794.0    132.5      8.5      _op2 = item if mnk.op2 == "old" else mnk.op2
+    40                                               #worry_level = mnk.op( _op1,_op2)
+    41      1997     209121.0    104.7      4.3      if mnk.op == "+":
+    42      1997     304090.0    152.3      6.3          worry_level = _op1 + _op2
+    43      1074     125315.0    116.7      2.6      elif mnk.op == "*":
+    44      1074     202049.0    188.1      4.2          worry_level = _op1 * _op2
+    45                                                   #worry_level = karatsuba(_op1,_op2)
+    46                                               else :
+    47                                                   assert(0)
+    48      3071     264416.0     86.1      5.5      if part_a :
+    49                                                   worry_level = math.floor(worry_level/3)
+    50      2963    1150762.0    388.4     23.9      if worry_level % mnk.test_div == 0 : 
+    51       108      12242.0    113.4      0.3          return worry_level,mnk.if_true
+    52                                               else :
+    53      2963     334736.0    113.0      7.0          return worry_level,mnk.if_false
