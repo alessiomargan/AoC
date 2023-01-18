@@ -116,3 +116,8 @@ def get_adj(i,j,M,diag=True) -> dict :
         if ( _i in rangeI and _j in rangeJ and (di,dj) not in exclude ):
             adj[(_i,_j)] = M[_i,_j]
     return adj
+
+def add_tuple(t1,t2) : 
+    return tuple(map(operator.add, t1, t2))
+def sub_tuple(t1,t2) : 
+    return tuple(map(operator.sub, t1, t2))
