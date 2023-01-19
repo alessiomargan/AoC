@@ -21,4 +21,6 @@ dependencies:
     - dict-to-dataclass
     - parse
     - primePy
+    - networkx
+    - pygraphviz
   
