@@ -1,0 +1,20 @@
+name: aoc
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - numpy
+  - jupyter
+  - more-itertools
+  - line_profiler
+  - memory_profiler
+  - pipdeptree
+  - requests
+  - seaborn
+  - wheel
+  - pip
+  - pip:
+    - advent-of-code-data
+    - browser-cookie3
+    - dict-to-dataclass
+  

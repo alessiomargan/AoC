@@ -2,6 +2,7 @@
 import os
 import urllib.request
 
+import ast
 import re
 import numpy as np
 import math
@@ -10,7 +11,8 @@ import time
 import string
 import operator
 import pprint as pp
-from typing      import Generator, Iterator, Iterable, List, Tuple, Deque, Callable, Any
+from typing      import List, Set, Dict, Tuple
+from typing      import Generator, Iterator, Iterable, Deque, Callable, Any
 from collections import Counter, defaultdict, namedtuple, deque, abc, OrderedDict, ChainMap
 from functools   import lru_cache, reduce
 from statistics  import mean, median, mode, stdev, variance
@@ -48,6 +50,9 @@ def ints(text):
     "A tuple of all integers in a string (ignore other characters)."
     return mapt(int, re.findall(r'-?[0-9]+', text))
 
+def digits(text):
+    "A tuple of all digits in a string (ignore other characters)."
+    return mapt(int, re.findall(r'[0-9]', text))
 
 # ### UTILITY FUNCTIONS
 
