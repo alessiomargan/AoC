@@ -16,4 +16,5 @@ dependencies:
   - pip:
     - advent-of-code-data
     - browser-cookie3
+    - dict-to-dataclass
   
