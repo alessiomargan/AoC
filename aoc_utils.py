@@ -22,7 +22,7 @@ from more_itertools import *
 from heapq import heappop, heappush
 #from numba import jit
 from dataclasses import dataclass, field
-from dict_to_dataclass import DataclassFromDict, field_from_dict
+#from dict_to_dataclass import DataclassFromDict, field_from_dict
 from aocd import get_data, submit
 
 # ### CONSTANTS
