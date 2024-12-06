@@ -6,12 +6,11 @@ dependencies:
   - numpy
   - jupyter
   - more-itertools
+  - bigtree
   - line_profiler
   - memory_profiler
   - pipdeptree
   - requests
-  - seaborn
-  - wheel
   - pip
   - pip:
     - advent-of-code-data

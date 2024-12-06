@@ -11,13 +11,12 @@ import time
 import string
 import operator
 import pprint as pp
-from typing      import List, Set, Dict, Tuple
-from typing      import Generator, Iterator, Iterable, Deque, Callable, Any
+from typing      import List, Set, Dict, Tuple, Deque, NamedTuple
+from typing      import Generator, Iterator, Iterable, Callable, Any
 from collections import Counter, defaultdict, namedtuple, deque, abc, OrderedDict, ChainMap
 from functools   import lru_cache, reduce
 from statistics  import mean, median, mode, stdev, variance
-from itertools   import (permutations, combinations, chain, cycle, product, islice, compress,
-                         takewhile, zip_longest, count as count_from, tee, pairwise)
+from itertools   import *
 from more_itertools import *
 from heapq import heappop, heappush
 #from numba import jit
