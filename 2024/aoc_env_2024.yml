@@ -11,6 +11,7 @@ dependencies:
   - memory_profiler
   - pipdeptree
   - requests
+  - pillow
   - pip
   - pip:
     - advent-of-code-data
