@@ -12,6 +12,7 @@ dependencies:
   - pipdeptree
   - requests
   - pillow
+  - matplotlib
   - pip
   - pip:
     - advent-of-code-data
