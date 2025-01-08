@@ -53,29 +53,29 @@ def robots_img(_robots):
 pos_vel = mapt(lambda z: mapt(lambda y: int(y), z), [x[0] for x in [re.findall(regex, line) for line in in_part_A]])
 robots = [Robot(*t) for t in pos_vel]
 M = robots_mat(move_robots(0,robots))
-sY,sX = M.cumsum(axis=0,),M.cumsum(axis=1)
+sY,sX = M.sum(axis=0,),M.sum(axis=1)
 
 
 # Setting up a random number generator with a fixed state for reproducibility.
 rng = np.random.default_rng(seed=19680801)
 # Fixing bin edges.
 #HIST_BINS = np.linspace(-4, 4, 100)
-HIST_BINS = 10
+HIST_BINS = 100
 
 # Histogram our data with numpy.
 data = rng.standard_normal(1000)
 n, _ = np.histogram(data, HIST_BINS)
-n, _ = np.histogram(sX[0], HIST_BINS)
-#print(sX[0])
+n, _ = np.histogram(sX, HIST_BINS)
+#print(sX)
 
 def animate(i, bar_container):
     # Simulate new data coming in.
     data = rng.standard_normal(1000)
     n, _ = np.histogram(data, HIST_BINS)
     M = robots_mat(move_robots(i,robots))
-    sY,sX = M.cumsum(axis=0,),M.cumsum(axis=1)
-    n, _ = np.histogram(sX[0], HIST_BINS)
-    print(i,sX[0])
+    sY,sX = M.sum(axis=0,),M.sum(axis=1)
+    n, _ = np.histogram(sX, HIST_BINS)
+    print(i,sX)
     for count, rect in zip(n, bar_container.patches):
         rect.set_height(count)
 
@@ -84,9 +84,9 @@ def animate(i, bar_container):
 
 fig, ax = plt.subplots()
 #_, _, bar_container = ax.hist(data, HIST_BINS, lw=1, ec="yellow", fc="green", alpha=0.5)
-_, _, bar_container = ax.hist(sX[0], HIST_BINS, lw=1, ec="yellow", fc="green", alpha=0.5)
+_, _, bar_container = ax.hist(sX, HIST_BINS, lw=1, ec="yellow", fc="green", alpha=0.5)
 ax.set_ylim(top=100)  # set safe limit to ensure that all data is visible.
 
 anim = functools.partial(animate, bar_container=bar_container)
-ani = animation.FuncAnimation(fig, anim, 100, repeat=False, blit=True)
+ani = animation.FuncAnimation(fig, anim, 101*103, repeat=False, blit=True)
 plt.show()
