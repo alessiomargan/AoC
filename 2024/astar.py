@@ -185,7 +185,7 @@ def heuristic(a: GridLocation, b: GridLocation) -> float:
     (x2, y2) = b
     return abs(x1 - x2) + abs(y1 - y2)
 
-def a_star_search(graph: WeightedGraph, start: Location, goal: Location):
+def a_star_search(graph: WeightedGraph, start: Location, goal: Location, heuristic_cost):
     frontier = PriorityQueue()
     frontier.put(start, 0)
     came_from: dict[Location, Optional[Location]] = {}
@@ -203,7 +203,7 @@ def a_star_search(graph: WeightedGraph, start: Location, goal: Location):
             new_cost = cost_so_far[current] + graph.cost(current, next)
             if next not in cost_so_far or new_cost < cost_so_far[next]:
                 cost_so_far[next] = new_cost
-                priority = new_cost + heuristic(next, goal)
+                priority = new_cost + heuristic_cost(next, goal)
                 frontier.put(next, priority)
                 came_from[next] = current
     
