@@ -18,4 +18,5 @@ dependencies:
     - advent-of-code-data
     - browser-cookie3
     - dict-to-dataclass
-  
+    - networkx
+    - pygraphviz
