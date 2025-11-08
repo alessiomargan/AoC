@@ -1,0 +1,14 @@
+name: Codespaces Post-Create
+
+on:
+  workflow_dispatch:
+
+# This workflow is triggered automatically when a Codespace is created
+# GitHub Codespaces will run the postCreateCommand from devcontainer.json
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Placeholder
+        run: echo "Codespace configuration is handled by devcontainer.json"

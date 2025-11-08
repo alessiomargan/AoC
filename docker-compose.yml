@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  aoc-jupyter:
+    build: .
+    container_name: aoc-workspace
+    ports:
+      - "8888:8888"
+    volumes:
+      # Mount the workspace for live editing
+      - .:/workspace
+      # Persist Jupyter settings
+      - jupyter-data:/root/.jupyter
+    environment:
+      - PYTHONUNBUFFERED=1
+    # Keep container running
+    stdin_open: true
+    tty: true
+
+volumes:
+  jupyter-data:

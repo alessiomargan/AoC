@@ -1,0 +1,32 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Environment files (rebuilt in container)
+*.yml
+aoc_env_*/
+
+# IDE
+.vscode/
+.idea/
+
+# Temporary files
+lp_*
+*.log
+tmp.ipynb
+
+# Git
+.git/
+.gitignore

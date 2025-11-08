@@ -1,0 +1,52 @@
+{
+  "name": "Advent of Code Workspace",
+  "dockerComposeFile": "../docker-compose.yml",
+  "service": "aoc-jupyter",
+  "workspaceFolder": "/workspace",
+
+  // Features to install (alternative to Dockerfile if you want modularity)
+  "features": {},
+
+  // VS Code settings
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "python.linting.enabled": true,
+        "python.linting.pylintEnabled": false,
+        "python.formatting.provider": "none",
+        "jupyter.notebookFileRoot": "${workspaceFolder}",
+        "files.watcherExclude": {
+          "**/__pycache__/**": true,
+          "**/lp_*": true
+        }
+      },
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-toolsai.jupyter",
+        "ms-toolsai.jupyter-keymap",
+        "ms-toolsai.jupyter-renderers",
+        "GitHub.copilot"
+      ]
+    }
+  },
+
+  // Forward Jupyter port
+  "forwardPorts": [8888],
+  "portsAttributes": {
+    "8888": {
+      "label": "JupyterLab",
+      "onAutoForward": "notify"
+    }
+  },
+
+  // Post-create command (runs after container is created)
+  "postCreateCommand": "echo 'Advent of Code workspace ready! Open http://localhost:8888 for JupyterLab'",
+
+  // Keep container running
+  "shutdownAction": "stopCompose",
+
+  // Run as root (matches Dockerfile)
+  "remoteUser": "root"
+}

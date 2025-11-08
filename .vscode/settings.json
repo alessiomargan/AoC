@@ -1,0 +1,16 @@
+{
+  "python.defaultInterpreterPath": "/usr/local/bin/python",
+  "jupyter.notebookFileRoot": "${workspaceFolder}",
+  "files.watcherExclude": {
+    "**/__pycache__/**": true,
+    "**/lp_*": true,
+    "**/.ipynb_checkpoints/**": true
+  },
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/.ipynb_checkpoints": true
+  },
+  "python.analysis.typeCheckingMode": "basic",
+  "python.analysis.autoImportCompletions": true,
+  "jupyter.interactiveWindow.textEditor.executeSelection": true
+}
