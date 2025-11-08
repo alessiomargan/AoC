@@ -16,8 +16,9 @@ WORKDIR /workspace
 # Copy requirements first for better caching
 COPY 2024/requirements.txt /tmp/requirements.txt
 
-# Install Python dependencies
-RUN pip install --no-cache-dir -r /tmp/requirements.txt
+# Install Python dependencies (including setuptools for compatibility)
+RUN pip install --no-cache-dir setuptools && \
+    pip install --no-cache-dir -r /tmp/requirements.txt
 
 # Copy the entire workspace
 COPY . /workspace
@@ -25,11 +26,12 @@ COPY . /workspace
 # Expose Jupyter port
 EXPOSE 8888
 
-# Set up Jupyter configuration
-RUN jupyter notebook --generate-config && \
-    echo "c.NotebookApp.token = ''" >> ~/.jupyter/jupyter_notebook_config.py && \
-    echo "c.NotebookApp.password = ''" >> ~/.jupyter/jupyter_notebook_config.py && \
-    echo "c.NotebookApp.allow_root = True" >> ~/.jupyter/jupyter_notebook_config.py
+# Set up Jupyter configuration (using jupyter lab instead of deprecated notebook)
+RUN mkdir -p ~/.jupyter && \
+    echo "c.ServerApp.token = ''" >> ~/.jupyter/jupyter_lab_config.py && \
+    echo "c.ServerApp.password = ''" >> ~/.jupyter/jupyter_lab_config.py && \
+    echo "c.ServerApp.allow_root = True" >> ~/.jupyter/jupyter_lab_config.py && \
+    echo "c.ServerApp.ip = '0.0.0.0'" >> ~/.jupyter/jupyter_lab_config.py
 
 # Default command: start JupyterLab
 CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root"]
