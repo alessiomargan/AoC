@@ -1,0 +1,24 @@
+# requirements.txt
+# Generated from aoc_env_2024.yml (conda->pip approximation)
+# Use `pip install -r requirements.txt` or prefer the conda environment file `aoc_env_2024.yml`.
+
+numpy
+jupyter
+more-itertools
+bigtree
+line_profiler
+memory-profiler
+pipdeptree
+requests
+pillow
+matplotlib
+
+# packages originally under pip: (leave as listed)
+advent-of-code-data
+browser-cookie3
+dict-to-dataclass
+networkx
+pygraphviz
+
+# Dev/test
+pytest
