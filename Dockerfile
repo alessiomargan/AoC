@@ -1,8 +1,9 @@
 # Dockerfile for Advent of Code workspace
 FROM python:3.14-slim
 
-# Install system dependencies for pygraphviz
+# Install system dependencies for pygraphviz and development tools
 RUN apt-get update && apt-get install -y \
+    git \
     graphviz \
     graphviz-dev \
     pkg-config \
