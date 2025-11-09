@@ -1,27 +1,25 @@
-# Dockerfile for Advent of Code workspace
-# Use Python 3.12 for better package compatibility and prebuilt wheels
-ARG PYTHON_VERSION=3.12
-FROM python:${PYTHON_VERSION}-slim
+# Dockerfile for Advent of Code workspace (Conda-based)
+FROM continuumio/miniconda3:latest
 
-# Install system dependencies for pygraphviz and development tools
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
     git \
-    graphviz \
-    graphviz-dev \
-    pkg-config \
-    gcc \
-    g++ \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
 # Set working directory
 WORKDIR /workspace
 
-# Copy requirements first for better caching
-COPY 2024/requirements.txt /tmp/requirements.txt
+# Copy conda environment file for better caching
+COPY 2024/aoc_env_2024.yml /tmp/environment.yml
 
-# Install Python dependencies (including setuptools for compatibility)
-RUN pip install --no-cache-dir setuptools && \
-    pip install --no-cache-dir -r /tmp/requirements.txt
+# Create conda environment and install packages
+RUN conda env create -f /tmp/environment.yml && \
+    conda clean -afy
+
+# Make RUN commands use the new environment
+ENV PATH /opt/conda/envs/aoc/bin:$PATH
+ENV CONDA_DEFAULT_ENV aoc
 
 # Copy the entire workspace
 COPY . /workspace
@@ -29,7 +27,7 @@ COPY . /workspace
 # Expose Jupyter port
 EXPOSE 8888
 
-# Set up Jupyter configuration (using jupyter lab instead of deprecated notebook)
+# Set up Jupyter configuration
 RUN mkdir -p ~/.jupyter && \
     echo "c.ServerApp.token = ''" >> ~/.jupyter/jupyter_lab_config.py && \
     echo "c.ServerApp.password = ''" >> ~/.jupyter/jupyter_lab_config.py && \

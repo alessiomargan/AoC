@@ -9,8 +9,10 @@ services:
     volumes:
       # Mount the workspace for live editing
       - .:/workspace
-      # Persist Jupyter settings
-      - jupyter-data:/root/.jupyter
+      # Persist conda environment
+      - conda-env:/opt/conda/envs/aoc
+      # Share Git config for Copilot authentication (optional)
+      - ~/.gitconfig:/root/.gitconfig:ro
     environment:
       - PYTHONUNBUFFERED=1
     # Keep container running
@@ -18,4 +20,4 @@ services:
     tty: true
 
 volumes:
-  jupyter-data:
+  conda-env:
