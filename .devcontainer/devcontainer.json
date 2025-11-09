@@ -47,12 +47,20 @@
 
   // Mount host's .gitconfig for git/GitHub operations
   "mounts": [
-    "source=${localEnv:HOME}/.gitconfig,target=/root/.gitconfig,type=bind,consistency=cached"
+    "source=${localEnv:HOME}/.gitconfig,target=/root/.gitconfig,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.config/aocd,target=/root/.config/aocd,type=bind,consistency=cached"
   ],
 
   // Keep container running
   "shutdownAction": "stopCompose",
 
   // Run as root (matches Dockerfile)
-  "remoteUser": "root"
+  "remoteUser": "root",
+
+  // In Codespaces you can’t directly access your local $HOME
+  // Store the session token as a Codespaces secret.
+  // Inject it via an environment variable AOC_SESSION.
+  "containerEnv": {
+    "AOC_SESSION": "${localEnv:AOC_SESSION}"
+  }
 }

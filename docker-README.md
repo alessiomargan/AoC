@@ -1,5 +1,47 @@
 # Docker Setup for Advent of Code Workspace (Conda-Based)
 
+## Two Ways to Use
+
+### 1. With docker-compose (Development - Volume Mounted)
+
+```bash
+docker-compose up
+```
+
+**How it works:**
+- Files are live-mounted: `.:/workspace`
+- Edit on host → changes appear in container instantly
+- Commit from host or container (both work)
+- No rebuild needed after code changes
+
+**Best for:** Daily development, solving AoC puzzles
+
+### 2. Standalone (Production/Distribution - Files Baked In)
+
+```bash
+# Build image with files baked in
+docker build -t aoc-standalone .
+
+# Run without volume mount
+docker run -p 8888:8888 aoc-standalone
+```
+
+**How it works:**
+- Files are copied into image during build
+- No live editing (image is immutable)
+- Portable image you can share/deploy
+- Includes all your solutions
+
+**Best for:** Sharing solutions, CI/CD, archiving
+
+### Comparison
+
+| Scenario | COPY Behavior | Use Case |
+|----------|---------------|----------|
+| **docker-compose** | Overridden by volume | Development, live editing |
+| **docker run** (no -v) | Used from image | Distribution, deployment |
+| **docker run -v** | Overridden by -v | Custom development setup |
+
 ## Quick Start
 
 ### Build and Run with Docker Compose (Recommended)

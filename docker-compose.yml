@@ -13,6 +13,7 @@ services:
       - conda-env:/opt/conda/envs/aoc
       # Share Git config for Copilot authentication (optional)
       - ~/.gitconfig:/root/.gitconfig:ro
+      - ~/.config/aocd:/root/.config/aocd:ro
     environment:
       - PYTHONUNBUFFERED=1
     # Keep container running

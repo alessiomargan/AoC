@@ -18,10 +18,11 @@ RUN conda env create -f /tmp/environment.yml && \
     conda clean -afy
 
 # Make RUN commands use the new environment
-ENV PATH /opt/conda/envs/aoc/bin:$PATH
-ENV CONDA_DEFAULT_ENV aoc
+ENV PATH=/opt/conda/envs/aoc/bin:$PATH
+ENV CONDA_DEFAULT_ENV=aoc
 
-# Copy the entire workspace
+# Copy workspace into image (for standalone use)
+# Note: This is overridden by volume mount when using docker-compose
 COPY . /workspace
 
 # Expose Jupyter port
