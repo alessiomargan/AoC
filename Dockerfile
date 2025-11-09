@@ -1,5 +1,7 @@
 # Dockerfile for Advent of Code workspace
-FROM python:3.14-slim
+# Use Python 3.12 for better package compatibility and prebuilt wheels
+ARG PYTHON_VERSION=3.12
+FROM python:${PYTHON_VERSION}-slim
 
 # Install system dependencies for pygraphviz and development tools
 RUN apt-get update && apt-get install -y \
