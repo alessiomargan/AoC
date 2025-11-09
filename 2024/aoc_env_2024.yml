@@ -2,9 +2,10 @@ name: aoc
 channels:
   - conda-forge
 dependencies:
-  - python=3.14
+  - python=3.12
   - numpy
-  - jupyter
+  - jupyterlab
+  - ipykernel
   - more-itertools
   - bigtree
   - line_profiler
@@ -13,10 +14,10 @@ dependencies:
   - requests
   - pillow
   - matplotlib
+  - networkx
+  - pygraphviz
   - pip
   - pip:
     - advent-of-code-data
     - browser-cookie3
     - dict-to-dataclass
-    - networkx
-    - pygraphviz
