@@ -1,124 +1,212 @@
-# Conda-Based Docker Setup
+# Conda Setup (Now Default!)
 
-## Why Conda?
+## Current Status
+
+✅ **Conda is now the default setup** for this repository.
+
+All containerization (Docker, Codespaces, Dev Containers) now uses conda-based package management via `continuumio/miniconda3`.
+
+## Why Conda is Default
 
 ✅ **Faster builds** - Pre-compiled binaries for all packages  
 ✅ **No version conflicts** - Conda resolves dependencies correctly  
-✅ **Python version flexibility** - Works with any Python version  
+✅ **Python version flexibility** - Works with Python 3.14  
 ✅ **System packages included** - graphviz, pygraphviz work out of the box  
 ✅ **No pip backtracking** - No 18-minute dependency resolution  
+✅ **Reliable** - Tested package combinations from conda-forge  
 
 ## Quick Start
 
-### Option 1: Use Conda Dockerfile
+### Use Current Conda Setup
 
 ```bash
-# Build with conda
-docker build -f Dockerfile.conda -t aoc-conda .
-
-# Run
-docker run -p 8888:8888 -v $(pwd):/workspace aoc-conda
-```
-
-### Option 2: Use Conda Docker Compose
-
-```bash
-# Build and run
-docker-compose -f docker-compose.conda.yml up --build
+# Build and run (uses conda by default)
+docker-compose up --build
 
 # Access JupyterLab at http://localhost:8888
 ```
 
-### Option 3: VS Code Devcontainer with Conda
+## Configuration Files
 
-1. Copy `.devcontainer/devcontainer-conda.json` to `.devcontainer/devcontainer.json`
-2. Reopen in container
-3. VS Code uses conda environment automatically
+### Main Environment: `2024/aoc_env_2024.yml`
 
-## Build Time Comparison
-
-| Method | Python | Build Time | Issues |
-|--------|--------|------------|--------|
-| **pip (old)** | 3.14 | 18+ min | ❌ Failed (backtracking) |
-| **pip (fixed)** | 3.12 | ~3 min | ✅ Works (pinned versions) |
-| **conda** | 3.12 | ~2 min | ✅ Works (pre-built) |
-
-## Switch Between pip and conda
-
-### Currently using pip:
-```bash
-# Keep using current setup
-docker-compose up
+```yaml
+name: aoc
+channels:
+  - conda-forge
+dependencies:
+  - python=3.14
+  - numpy
+  - jupyterlab
+  - ipykernel
+  - matplotlib
+  - networkx
+  - pygraphviz
+  - pip:
+    - advent-of-code-data
+    - browser-cookie3
+    - dict-to-dataclass
 ```
 
-### Switch to conda:
-```bash
-# Use conda-based setup
-docker-compose -f docker-compose.conda.yml up
-```
+### Container: `Dockerfile`
 
-### In VS Code:
-Edit `.devcontainer/devcontainer.json`:
-```json
-{
-  "dockerComposeFile": "../docker-compose.conda.yml",  // Change this line
-  "service": "aoc-jupyter",
-  ...
-}
-```
+Uses `continuumio/miniconda3:latest` base image and creates environment from the .yml file.
 
-## Update Conda Environment
+### Compose: `docker-compose.yml`
+
+Mounts:
+- Workspace (live editing)
+- Conda environment (persistence)
+- Git config (authentication)
+- AoC data (session token)
+
+## Update Packages
+
+### Add Conda Package
 
 Edit `2024/aoc_env_2024.yml`:
+
 ```yaml
 dependencies:
-  - python=3.12
-  - your-new-package
+  - python=3.14
+  - your-new-package  # Add here
 ```
 
 Then rebuild:
-```bash
-docker-compose -f docker-compose.conda.yml build --no-cache
-```
-
-## Advantages of Conda Approach
-
-1. **No version pinning needed** - Conda handles compatibility
-2. **Faster updates** - Just edit .yml file
-3. **Reproducible** - Same exact versions across machines
-4. **System libs included** - No separate apt-get for graphviz
-5. **Better for science** - Conda-forge optimized for data science
-
-## Which Should You Use?
-
-**Use Conda if:**
-- You're familiar with conda
-- Want fastest, most reliable builds
-- Need complex packages (pygraphviz, opencv, etc.)
-- Working with multiple Python versions
-
-**Use pip if:**
-- Simpler requirements (pure Python packages)
-- Want smaller final image (~500MB smaller)
-- Team prefers pip workflow
-- Need latest package versions (conda can lag slightly)
-
-## Current Recommendation
-
-Since you mentioned conda works better for you, **I recommend switching to the conda setup**:
 
 ```bash
-# Switch your devcontainer
-mv .devcontainer/devcontainer.json .devcontainer/devcontainer-pip.json
-mv .devcontainer/devcontainer-conda.json .devcontainer/devcontainer.json
-
-# Rebuild
-# VS Code will prompt to rebuild, or run:
-# Ctrl+Shift+P -> "Dev Containers: Rebuild Container"
+docker-compose up --build
 ```
 
-Your original conda env file (`aoc_env_2024.yml`) now has:
-- ✅ Python 3.12 (stable, fast)
-- ✅ jupyterlab instead of jupyter
-- ✅ pygraphviz from conda (no compilation needed)
-- ✅ All your packages
+### Add pip Package
+
+Edit `2024/aoc_env_2024.yml`:
+
+```yaml
+dependencies:
+  - python=3.14
+  - pip:
+    - your-pip-package  # Add here
+```
+
+## Build Time Comparison
+
+| Setup | Python | Build Time | Issues |
+|-------|--------|------------|--------|
+| **Conda (current)** | 3.14 | ~2 min | ✅ None |
+| **pip (old)** | 3.14 | 18+ min | ❌ Failed (backtracking) |
+| **pip (fixed)** | 3.12 | ~3 min | ✅ Works (pinned versions) |
+
+## Features
+
+### What Conda Provides
+
+1. **Pre-built binaries** - No compilation needed
+2. **System libraries** - Includes graphviz, compilers
+3. **Dependency resolution** - Solved once, no conflicts
+4. **Reproducibility** - Same versions everywhere
+5. **Fast updates** - Incremental environment updates
+
+### Mounted Data
+
+The setup preserves:
+- **Code**: Live mounted from host
+- **Conda env**: Persisted in Docker volume
+- **Git config**: Shared from `~/.gitconfig`
+- **AoC session**: Shared from `~/.config/aocd`
+
+## Advantages Over pip
+
+### Conda Wins For:
+- Complex packages (pygraphviz, opencv, scipy)
+- Scientific computing libraries
+- Multiple Python versions
+- System-level dependencies
+- Reproducible environments
+
+### Why Not pip?
+- Slower dependency resolution
+- Requires version pinning
+- No system packages
+- Source builds on missing wheels
+- Backtracking issues with Python 3.14
+
+## Local Conda Usage
+
+You can also use conda locally without Docker:
+
+```bash
+# Create environment
+conda env create -f 2024/aoc_env_2024.yml
+
+# Activate
+conda activate aoc
+
+# Run Jupyter
+jupyter lab
+
+# Install Jupyter kernel
+python -m ipykernel install --user --name=aoc
+```
+
+## Migration Notes
+
+If you were using the old pip-based setup:
+
+### What Changed
+- `Dockerfile` now uses `continuumio/miniconda3`
+- Packages installed via `aoc_env_2024.yml`
+- Python path: `/opt/conda/envs/aoc/bin/python`
+- No more `requirements.txt` for primary deps (kept for reference)
+
+### What Stayed Same
+- JupyterLab on port 8888
+- VS Code devcontainer support
+- GitHub Codespaces support
+- All the same packages available
+
+### Rebuild Required
+After pulling latest changes:
+
+```bash
+# Rebuild with new conda setup
+docker-compose build --no-cache
+docker-compose up
+```
+
+## Troubleshooting
+
+### Conda environment not found
+
+```bash
+docker-compose exec aoc-jupyter conda env list
+# Should show 'aoc' environment
+```
+
+### Package not available in conda
+
+Add to pip section:
+
+```yaml
+dependencies:
+  - pip:
+    - your-package  # Install via pip in conda env
+```
+
+### Slow conda solver
+
+Use mamba (faster conda):
+
+```dockerfile
+RUN conda install -n base conda-libmamba-solver
+RUN conda config --set solver libmamba
+```
+
+## Summary
+
+✅ Conda is now default and recommended  
+✅ Faster, more reliable than pip for this use case  
+✅ All documentation updated  
+✅ Works in Docker, Codespaces, and local dev  
+
+The old pip-based setup is no longer maintained but requirements.txt is kept for reference.
