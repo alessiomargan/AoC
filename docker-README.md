@@ -88,7 +88,7 @@ docker-compose down
 
 ## Features
 
-✅ **Python 3.14** - Via conda-forge channel  
+✅ **Python 3.13** - Via conda-forge channel  
 ✅ **Conda environment** - Fast, reliable package management  
 ✅ **All dependencies** - numpy, jupyterlab, matplotlib, networkx, pygraphviz, etc.  
 ✅ **System libraries** - git, curl for GitHub operations  

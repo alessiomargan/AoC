@@ -78,6 +78,10 @@ def chunks(iterable, n):
         yield chunk
 
 
+def isValid(np_shape: Tuple, index: Tuple)->bool:
+    index = np.array(index)
+    return (index >= 0).all() and (index < np_shape).all()
+
 def get_adj_cross(i,j,M):
     """
           | i-1,j |
@@ -124,5 +128,6 @@ def get_adj(i,j,M,diag=True) -> dict :
 
 def add_tuple(t1,t2) : 
     return tuple(map(operator.add, t1, t2))
+
 def sub_tuple(t1,t2) : 
     return tuple(map(operator.sub, t1, t2))
