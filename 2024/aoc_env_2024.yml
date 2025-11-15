@@ -16,6 +16,8 @@ dependencies:
   - matplotlib
   - networkx
   - pygraphviz
+  - pre-commit
+  - nbstripout
   - pip
   - pip:
     - advent-of-code-data

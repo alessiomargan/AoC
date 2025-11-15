@@ -1,0 +1,25 @@
+# Pre-commit hooks for Jupyter notebooks
+# See https://pre-commit.com for more information
+
+repos:
+  - repo: https://github.com/kynan/nbstripout
+    rev: 0.7.1
+    hooks:
+      - id: nbstripout
+        args:
+          - --extra-keys
+          - "metadata.language_info metadata.kernelspec cell.metadata.ExecuteTime cell.metadata.execution cell.metadata.scrolled"
+
+  # Optional: Additional useful hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: '\.ipynb$'
+      - id: end-of-file-fixer
+        exclude: '\.ipynb$'
+      - id: check-yaml
+      - id: check-added-large-files
+        args: ['--maxkb=10000']
+      - id: mixed-line-ending
+        exclude: '\.ipynb$'
