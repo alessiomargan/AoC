@@ -43,9 +43,8 @@
   },
 
   // Post-create command (runs after container is created)
-  // Uses conda environment from PATH set in Dockerfile
-  "postCreateCommand": "/opt/conda/envs/aoc/bin/pre-commit install && echo 'Advent of Code workspace ready! Open http://localhost:8888 for JupyterLab'",
-
+  "postCreateCommand": "bash -c 'echo \"Advent of Code workspace ready! Open http://localhost:8888 for JupyterLab\"'",
+  //"postCreateCommand": "bash -c 'source /opt/conda/etc/profile.d/conda.sh && conda activate aoc && pre-commit install && echo \"Advent of Code workspace ready! Open http://localhost:8888 for JupyterLab\"'",
   // Mount host's .gitconfig for git/GitHub operations
   "mounts": [
     "source=${localEnv:HOME}/.gitconfig,target=/root/.gitconfig,type=bind,consistency=cached",

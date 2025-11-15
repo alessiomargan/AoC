@@ -16,10 +16,11 @@ dependencies:
   - matplotlib
   - networkx
   - pygraphviz
-  - pre-commit
-  - nbstripout
   - pip
   - pip:
     - advent-of-code-data
     - browser-cookie3
     - dict-to-dataclass
+    - pre-commit
+    - nbstripout
+  
