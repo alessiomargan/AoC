@@ -1,8 +1,10 @@
-version: '3.8'
-
 services:
   aoc-jupyter:
-    build: .
+    build:
+      context: .
+      args:
+        USER_UID: "${UID:-1000}"
+        USER_GID: "${GID:-1000}"
     container_name: aoc-workspace
     ports:
       - "8888:8888"
@@ -12,8 +14,8 @@ services:
       # Persist conda environment
       - conda-env:/opt/conda/envs/aoc
       # Share Git config for Copilot authentication (optional)
-      - ~/.gitconfig:/root/.gitconfig:ro
-      - ~/.config/aocd:/root/.config/aocd:ro
+      - ~/.gitconfig:/home/aoc/.gitconfig:ro
+      - ~/.config/aocd:/home/aoc/.config/aocd:ro
     environment:
       - PYTHONUNBUFFERED=1
     # Keep container running

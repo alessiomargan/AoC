@@ -3,6 +3,7 @@
   "dockerComposeFile": "../docker-compose.yml",
   "service": "aoc-jupyter",
   "workspaceFolder": "/workspace",
+  "remoteUser": "aoc",
 
   // Features to install (alternative to Dockerfile if you want modularity)
   "features": {},
@@ -42,20 +43,19 @@
     }
   },
 
-  // Post-create command (runs after container is created)
-  "postCreateCommand": "bash -c 'echo \"Advent of Code workspace ready! Open http://localhost:8888 for JupyterLab\"'",
-  //"postCreateCommand": "bash -c 'source /opt/conda/etc/profile.d/conda.sh && conda activate aoc && pre-commit install && echo \"Advent of Code workspace ready! Open http://localhost:8888 for JupyterLab\"'",
+  // Post-create command: install pre-commit hooks as the non-root user and print a hint
+  //"postCreateCommand": "/opt/conda/envs/aoc/bin/pre-commit install && echo 'Advent of Code workspace ready! Open http://localhost:8888 for JupyterLab'",
+  "postCreateCommand": "echo 'Advent of Code workspace ready! Open http://localhost:8888 for JupyterLab'",
   // Mount host's .gitconfig for git/GitHub operations
   "mounts": [
-    "source=${localEnv:HOME}/.gitconfig,target=/root/.gitconfig,type=bind,consistency=cached",
-    "source=${localEnv:HOME}/.config/aocd,target=/root/.config/aocd,type=bind,consistency=cached"
+    "source=${localEnv:HOME}/.gitconfig,target=/home/aoc/.gitconfig,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.config/aocd,target=/home/aoc/.config/aocd,type=bind,consistency=cached"
   ],
 
   // Keep container running
   "shutdownAction": "stopCompose",
 
-  // Run as root (matches Dockerfile)
-  "remoteUser": "root",
+  // Use the non-root user created in the image (UID/GID set via docker-compose build args)
 
   // In Codespaces you can’t directly access your local $HOME
   // Store the session token as a Codespaces secret.

@@ -21,6 +21,21 @@ RUN conda env create -f /tmp/environment.yml && \
 ENV PATH=/opt/conda/envs/aoc/bin:$PATH
 ENV CONDA_DEFAULT_ENV=aoc
 
+# Create a non-root user that will match the host user (UID/GID provided at build time)
+ARG USERNAME=aoc
+ARG USER_UID=1000
+ARG USER_GID=1000
+RUN groupadd --gid ${USER_GID} ${USERNAME} \
+    && useradd --uid ${USER_UID} --gid ${USER_GID} -m -s /bin/bash ${USERNAME}
+
+# Ensure the workspace exists and is owned by the non-root user
+RUN mkdir -p /workspace \
+    && chown -R ${USERNAME}:${USER_GID} /workspace
+
+# Pre-create common config directories for the non-root user (for bind mounts)
+RUN mkdir -p /home/${USERNAME}/.config \
+    && chown -R ${USERNAME}:${USER_GID} /home/${USERNAME}/.config
+
 # Copy workspace into image (for standalone use)
 # Note: This is overridden by volume mount when using docker-compose
 COPY . /workspace
@@ -29,11 +44,15 @@ COPY . /workspace
 EXPOSE 8888
 
 # Set up Jupyter configuration
-RUN mkdir -p ~/.jupyter && \
-    echo "c.ServerApp.token = ''" >> ~/.jupyter/jupyter_lab_config.py && \
-    echo "c.ServerApp.password = ''" >> ~/.jupyter/jupyter_lab_config.py && \
-    echo "c.ServerApp.allow_root = True" >> ~/.jupyter/jupyter_lab_config.py && \
-    echo "c.ServerApp.ip = '0.0.0.0'" >> ~/.jupyter/jupyter_lab_config.py
+RUN mkdir -p /home/${USERNAME}/.jupyter && \
+    echo "c.ServerApp.token = ''" >> /home/${USERNAME}/.jupyter/jupyter_lab_config.py && \
+    echo "c.ServerApp.password = ''" >> /home/${USERNAME}/.jupyter/jupyter_lab_config.py && \
+    echo "c.ServerApp.ip = '0.0.0.0'" >> /home/${USERNAME}/.jupyter/jupyter_lab_config.py && \
+    chown -R ${USERNAME}:${USER_GID} /home/${USERNAME}/.jupyter
+
+# Set default HOME and user for runtime
+ENV HOME=/home/${USERNAME}
+USER ${USERNAME}
 
 # Default command: start JupyterLab
-CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root"]
+CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser"]
