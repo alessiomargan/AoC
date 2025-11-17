@@ -23,4 +23,3 @@ dependencies:
     - dict-to-dataclass
     - pre-commit
     - nbstripout
-  

@@ -145,7 +145,7 @@ docker system prune -a  # Clean old images
 
 ## Summary
 
-✅ Your Dockerfile is already optimized!  
-✅ pip install only runs when requirements.txt changes  
-✅ Normal code edits rebuild in seconds  
+✅ Your Dockerfile is already optimized!
+✅ pip install only runs when requirements.txt changes
+✅ Normal code edits rebuild in seconds
 ✅ Docker caching is automatic and transparent

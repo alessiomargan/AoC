@@ -18,5 +18,5 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
     10  25165821   16525521.0      0.7     44.2              polymer += "".join((rules[k],p2))
     11        23       4178.0    181.7      0.0          print(f"step {cnt} len(polymer) {len(polymer)}")
     12        23         87.0      3.8      0.0          templ = polymer
-    13                                               
+    13
     14         1          0.0      0.0      0.0      return polymer

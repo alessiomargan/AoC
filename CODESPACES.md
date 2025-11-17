@@ -52,14 +52,14 @@ Once your Codespace is running:
 
 ## Features Enabled
 
-✅ **Python 3.14** via conda-forge  
-✅ **Conda environment** with all AoC dependencies  
-✅ **Jupyter Notebooks** with inline editing  
-✅ **VS Code Extensions**: Python, Pylance, Jupyter  
-✅ **GitHub Copilot** (if you have access)  
-✅ **Port Forwarding** for JupyterLab  
-✅ **Persistent Storage** - Changes are saved  
-✅ **AoC Session** - Set as Codespaces secret  
+✅ **Python 3.14** via conda-forge
+✅ **Conda environment** with all AoC dependencies
+✅ **Jupyter Notebooks** with inline editing
+✅ **VS Code Extensions**: Python, Pylance, Jupyter
+✅ **GitHub Copilot** (if you have access)
+✅ **Port Forwarding** for JupyterLab
+✅ **Persistent Storage** - Changes are saved
+✅ **AoC Session** - Set as Codespaces secret
 
 ## Configuration Files
 
@@ -120,7 +120,7 @@ Edit `.devcontainer/devcontainer.json` to:
 
 ### Codespace Size
 
-Default: 2-core, 8GB RAM, 32GB storage  
+Default: 2-core, 8GB RAM, 32GB storage
 To change: GitHub repo → Settings → Codespaces → Set minimum machine type
 
 ## Troubleshooting
@@ -183,10 +183,10 @@ gh codespace edit --idle-timeout 30m
 
 This setup uses conda because:
 
-✅ **Faster builds** - Pre-compiled binaries  
-✅ **Reliable** - No pip backtracking  
-✅ **Python flexibility** - Works with any Python version  
-✅ **System packages** - pygraphviz from conda-forge  
+✅ **Faster builds** - Pre-compiled binaries
+✅ **Reliable** - No pip backtracking
+✅ **Python flexibility** - Works with any Python version
+✅ **System packages** - pygraphviz from conda-forge
 
 ## Local Development Alternative
 

@@ -7,14 +7,14 @@ Function: better_population at line 1
 Line #      Hits         Time  Per Hit   % Time  Line Contents
 ==============================================================
      1                                           def better_population (in_s: list, days: int, verbose: bool =False) -> int :
-     2                                           
+     2
      3         1      15881.0  15881.0      0.9      cS = Counter(in_s)
      4         1        131.0    131.0      0.0      days = days
      5         1         78.0     78.0      0.0      cnt = 0
      6       256      35800.0    139.8      2.1      while cnt < days :
      7       256      21693.0     84.7      1.2          if verbose :
      8                                                       print (f"day {cnt} {cS.most_common()}")
-     9                                                   # subtract 1 to all Counter keys 
+     9                                                   # subtract 1 to all Counter keys
     10       256     177276.0    692.5     10.2          tmp = Counter()
     11      2280     248763.0    109.1     14.2          for k in cS.keys() :
     12      2027     202095.0     99.7     11.6              if k == 0 :
@@ -23,7 +23,7 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
     15      2027     756305.0    373.1     43.3                  tmp[k-1] += cS[k]
     16       253      29347.0    116.0      1.7          if cS[0] :
     17       253      86813.0    343.1      5.0              tmp[8] += cS[0]
-    18       256      46302.0    180.9      2.7          cS = tmp        
+    18       256      46302.0    180.9      2.7          cS = tmp
     19       256      28598.0    111.7      1.6          cnt += 1
-    20                                           
+    20
     21         1       1656.0   1656.0      0.1      return cS.total()

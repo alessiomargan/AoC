@@ -21,7 +21,7 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
     13      7000     913111.0    130.4      0.0                  if throw_to in mnk_od :
     14      3765     863007.0    229.2      0.0                      mnk_od[throw_to].items.append(worry_level)
     15      7000     709676.0    101.4      0.0                  elif throw_to in next_mnk_od :
-    16      7000    1505035.0    215.0      0.1                      next_mnk_od[throw_to].items.append(worry_level)               
+    16      7000    1505035.0    215.0      0.1                      next_mnk_od[throw_to].items.append(worry_level)
     17                                                           else:
     18                                                               next_round_items.append(worry_level)
     19                                                       #
@@ -44,7 +44,7 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
     34                                           def turn(mnk, part_a=True):
     35     10765     840717.0     78.1      0.0      worry_level = 0
     36     10765    1806478.0    167.8      0.1      item = mnk.items.popleft()
-    37     10765    2160810.0    200.7      0.1      mnk.cnt_inspected += 1 
+    37     10765    2160810.0    200.7      0.1      mnk.cnt_inspected += 1
     38     10765    1423980.0    132.3      0.1      _op1 = item if mnk.op1 == "old" else mnk.op1
     39     10765    1501517.0    139.5      0.1      _op2 = item if mnk.op2 == "old" else mnk.op2
     40                                               #worry_level = mnk.op( _op1,_op2)
@@ -57,7 +57,7 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
     47                                                   assert(0)
     48     10765    1479637.0    137.4      0.1      if part_a :
     49                                                   worry_level = math.floor(worry_level/3)
-    50     10337  491906539.0  47587.0     23.2      if worry_level % mnk.test_div == 0 : 
+    50     10337  491906539.0  47587.0     23.2      if worry_level % mnk.test_div == 0 :
     51       428      51662.0    120.7      0.0          return worry_level,mnk.if_true
     52                                               else :
     53     10337    1236386.0    119.6      0.1          return worry_level,mnk.if_false

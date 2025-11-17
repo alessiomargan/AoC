@@ -20,7 +20,7 @@ docker-compose up --build
 
 ### 2. GitHub Codespaces
 Go to: `https://github.com/alessiomargan/AoC`
-- Click **Code** → **Codespaces** 
+- Click **Code** → **Codespaces**
 - Click **Create codespace on main**
 - Wait ~2 minutes for conda environment setup
 - Start coding!

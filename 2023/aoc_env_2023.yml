@@ -16,4 +16,3 @@ dependencies:
   - pip:
     - advent-of-code-data
     - browser-cookie3
-  

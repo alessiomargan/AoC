@@ -16,7 +16,7 @@ class Graph(Protocol):
 class SimpleGraph:
     def __init__(self):
         self.edges: dict[Location, list[Location]] = {}
-    
+
     def neighbors(self, id: Location) -> list[Location]:
         return self.edges[id]
 
@@ -35,13 +35,13 @@ import collections
 class Queue:
     def __init__(self):
         self.elements = collections.deque()
-    
+
     def empty(self) -> bool:
         return not self.elements
-    
+
     def put(self, x: T):
         self.elements.append(x)
-    
+
     def get(self) -> T:
         return self.elements.popleft()
 
@@ -83,14 +83,14 @@ class SquareGrid:
         self.width = width
         self.height = height
         self.walls: list[GridLocation] = []
-    
+
     def in_bounds(self, id: GridLocation) -> bool:
         (x, y) = id
         return 0 <= x < self.width and 0 <= y < self.height
-    
+
     def passable(self, id: GridLocation) -> bool:
         return id not in self.walls
-    
+
     def neighbors(self, id: GridLocation) -> Iterator[GridLocation]:
         (x, y) = id
         neighbors = [(x+1, y), (x-1, y), (x, y-1), (x, y+1)] # E W N S
@@ -107,7 +107,7 @@ class GridWithWeights(SquareGrid):
     def __init__(self, width: int, height: int):
         super().__init__(width, height)
         self.weights: dict[GridLocation, float] = {}
-    
+
     def cost(self, from_node: GridLocation, to_node: GridLocation) -> float:
         return self.weights.get(to_node, 1)
 
@@ -126,13 +126,13 @@ import heapq
 class PriorityQueue:
     def __init__(self):
         self.elements: list[tuple[float, T]] = []
-    
+
     def empty(self) -> bool:
         return not self.elements
-    
+
     def put(self, item: T, priority: float):
         heapq.heappush(self.elements, (priority, item))
-    
+
     def get(self) -> T:
         return heapq.heappop(self.elements)[1]
 
@@ -143,13 +143,13 @@ def dijkstra_search(graph: WeightedGraph, start: Location, goal: Location):
     cost_so_far: dict[Location, float] = {}
     came_from[start] = None
     cost_so_far[start] = 0
-    
+
     while not frontier.empty():
         current: Location = frontier.get()
-        
+
         if current == goal:
             break
-        
+
         for next in graph.neighbors(current):
             new_cost = cost_so_far[current] + graph.cost(current, next)
             if next not in cost_so_far or new_cost < cost_so_far[next]:
@@ -157,7 +157,7 @@ def dijkstra_search(graph: WeightedGraph, start: Location, goal: Location):
                 priority = new_cost
                 frontier.put(next, priority)
                 came_from[next] = current
-    
+
     return came_from, cost_so_far
 
 # thanks to @m1sp <Jaiden Mispy> for this simpler version of
@@ -192,13 +192,13 @@ def a_star_search(graph: WeightedGraph, start: Location, goal: Location, heurist
     cost_so_far: dict[Location, float] = {}
     came_from[start] = None
     cost_so_far[start] = 0
-    
+
     while not frontier.empty():
         current: Location = frontier.get()
-        
+
         if current == goal:
             break
-        
+
         for next in graph.neighbors(current):
             new_cost = cost_so_far[current] + graph.cost(current, next)
             if next not in cost_so_far or new_cost < cost_so_far[next]:
@@ -206,7 +206,7 @@ def a_star_search(graph: WeightedGraph, start: Location, goal: Location, heurist
                 priority = new_cost + heuristic_cost(next, goal)
                 frontier.put(next, priority)
                 came_from[next] = current
-    
+
     return came_from, cost_so_far
 
 def breadth_first_search(graph: Graph, start: Location, goal: Location):
@@ -214,18 +214,18 @@ def breadth_first_search(graph: Graph, start: Location, goal: Location):
     frontier.put(start)
     came_from: dict[Location, Optional[Location]] = {}
     came_from[start] = None
-    
+
     while not frontier.empty():
         current: Location = frontier.get()
-        
+
         if current == goal:
             break
-        
+
         for next in graph.neighbors(current):
             if next not in came_from:
                 frontier.put(next)
                 came_from[next] = current
-    
+
     return came_from
 
 class SquareGridNeighborOrder(SquareGrid):

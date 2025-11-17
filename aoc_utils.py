@@ -13,7 +13,7 @@ import operator
 import pprint as pp
 import typing
 from typing      import List, Set, Dict, Tuple, Deque, NamedTuple
-from typing      import Generator, Iterator, Iterable, Callable, Any
+from typing      import Generator, Iterator, Iterable, Callable, Any, Optional
 from collections import Counter, defaultdict, namedtuple, deque, abc, OrderedDict, ChainMap
 from functools   import lru_cache, reduce
 from statistics  import mean, median, mode, stdev, variance
@@ -41,7 +41,7 @@ def parse(day, parser=str, sep='\n', file_template='input/input{}.txt') -> tuple
     """Split the day's input file into entries separated by `sep`, and apply `parser` to each."""
     entries = open(file_template.format(day)).read().rstrip().split(sep)
     return mapt(parser, entries)
-    
+
 def Input(day, line_parser=str.strip, file_template='input/input{}.txt'):
     "For this day's input file, return a tuple of each line parsed by `line_parser`."
     return mapt(line_parser, open(file_template.format(day)))
@@ -88,7 +88,7 @@ def get_adj_cross(i,j,M):
     ------------------------
     i,j-1 | i  ,j | i,j+1
     ------------------------
-          | i+1,j |  
+          | i+1,j |
     """
     I,J = M.shape
     I -= 1
@@ -111,7 +111,7 @@ def get_adj(i,j,M,diag=True) -> dict :
     --------------------------
        i,j-1 | i , j |   i,j+1
     --------------------------
-     i+1,j-1 | i+1,j | i+1,j+1  
+     i+1,j-1 | i+1,j | i+1,j+1
     """
     I,J = M.shape
     rangeI = range(I)
@@ -121,13 +121,13 @@ def get_adj(i,j,M,diag=True) -> dict :
     if not diag :
         exclude |= set([(-1,-1),(-1,1),(1,1),(1,-1)])
     for (di,dj) in product(range(-1,2),repeat=2) :
-        _i,_j = i+di,j+dj  
+        _i,_j = i+di,j+dj
         if ( _i in rangeI and _j in rangeJ and (di,dj) not in exclude ):
             adj[(_i,_j)] = M[_i,_j]
     return adj
 
-def add_tuple(t1,t2) : 
+def add_tuple(t1,t2) :
     return tuple(map(operator.add, t1, t2))
 
-def sub_tuple(t1,t2) : 
+def sub_tuple(t1,t2) :
     return tuple(map(operator.sub, t1, t2))

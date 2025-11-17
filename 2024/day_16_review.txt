@@ -3,8 +3,8 @@ Day 16 Solution Review
 
 Overview
 --------
-You're solving the Reindeer Maze problem using A* search with orientation-aware 
-state space. The maze is a grid where a reindeer moves with direction (^, v, <, >) 
+You're solving the Reindeer Maze problem using A* search with orientation-aware
+state space. The maze is a grid where a reindeer moves with direction (^, v, <, >)
 and turning costs more than moving forward.
 
 Strengths ✅
@@ -35,20 +35,20 @@ CRITICAL: Part 2 logic is incorrect
 Your Part 2 implementation has several problems:
 
 1. Generator usage is wrong
-   - You call `next(search_gen(...))` once and stop at the first time the goal 
+   - You call `next(search_gen(...))` once and stop at the first time the goal
      is reached, but you need to explore ALL optimal paths with the same cost.
 
 2. `came_from` tracking is incomplete
-   - You append to `came_from[next]` but never handle the case where multiple 
+   - You append to `came_from[next]` but never handle the case where multiple
      paths reach the same node with equal cost. Current code:
-   
+
      if next not in cost_so_far or new_cost < cost_so_far[next]:
          # ...
          came_from[next].append(current)
-   
-   This only appends when cost is **strictly better**, not when cost is **equal**. 
+
+   This only appends when cost is **strictly better**, not when cost is **equal**.
    You need:
-   
+
      if next not in cost_so_far or new_cost <= cost_so_far[next]:
          if next not in cost_so_far or new_cost < cost_so_far[next]:
              cost_so_far[next] = new_cost
@@ -56,14 +56,14 @@ Your Part 2 implementation has several problems:
          came_from[next].append(current)
 
 3. Wrong answer for Part 2
-   - `res_b = len(path)` only counts tiles in a single path. Part 2 asks: 
+   - `res_b = len(path)` only counts tiles in a single path. Part 2 asks:
      **how many tiles are on ANY optimal path?** You need to:
      * Find all paths with minimum cost
      * Collect unique positions from all those paths
      * Count unique `(row, col)` positions
 
 4. `reconstruct_path` doesn't handle multiple parents
-   - It assumes each node has a single parent. For Part 2, you need BFS/DFS 
+   - It assumes each node has a single parent. For Part 2, you need BFS/DFS
      through `came_from` to collect all paths.
 
 
@@ -71,19 +71,19 @@ Minor issues
 ------------
 
 5. Heuristic may be inadmissible
-   - Manhattan distance ignores turning cost. If the optimal path requires turns, 
-     manhattan underestimates cost and A* may not find the true optimum. For Part 1, 
+   - Manhattan distance ignores turning cost. If the optimal path requires turns,
+     manhattan underestimates cost and A* may not find the true optimum. For Part 1,
      using Dijkstra (heuristic=0) is safer.
 
 6. Unused `__eq__` override in `Loc`
-   - Your `__eq__` compares only position, ignoring orientation. This breaks 
-     dictionary/set lookups because `Loc(1,2,'^')` and `Loc(1,2,'>')` would be 
+   - Your `__eq__` compares only position, ignoring orientation. This breaks
+     dictionary/set lookups because `Loc(1,2,'^')` and `Loc(1,2,'>')` would be
      equal but have different hashes. Either:
      * Remove the override (use default namedtuple equality)
      * Or override `__hash__` to match (but that's complex)
 
 7. Hardcoded test data
-   - `maze_str` and `maze_str_` are test inputs. Good for dev, but consider 
+   - `maze_str` and `maze_str_` are test inputs. Good for dev, but consider
      moving to separate test files.
 
 
@@ -103,18 +103,18 @@ def dijkstra_all_paths(graph: ReindeerMazeGrid, start: Loc, goal: Loc):
     came_from = defaultdict(list)  # each node can have multiple parents
     cost_so_far = {}
     cost_so_far[start] = 0
-    
+
     goal_cost = float('inf')
     goals_reached = []
-    
+
     while not frontier.empty():
         current = frontier.get()
         current_cost = cost_so_far[current]
-        
+
         # Skip if we've already found cheaper path to goal
         if current_cost > goal_cost:
             continue
-            
+
         # Check if we reached goal
         if current.pos() == goal.pos():
             if current_cost < goal_cost:
@@ -123,10 +123,10 @@ def dijkstra_all_paths(graph: ReindeerMazeGrid, start: Loc, goal: Loc):
             elif current_cost == goal_cost:
                 goals_reached.append(current)
             continue
-        
+
         for next in graph.neighbors(current):
             new_cost = current_cost + graph.cost(current, next)
-            
+
             if next not in cost_so_far:
                 # First time reaching this node
                 cost_so_far[next] = new_cost
@@ -140,7 +140,7 @@ def dijkstra_all_paths(graph: ReindeerMazeGrid, start: Loc, goal: Loc):
                 cost_so_far[next] = new_cost
                 frontier.put(next, new_cost)
                 came_from[next] = [current]
-    
+
     return goals_reached, came_from, cost_so_far
 
 def collect_all_tiles(came_from, goals):
@@ -148,18 +148,18 @@ def collect_all_tiles(came_from, goals):
     tiles = set()
     visited = set()
     stack = list(goals)
-    
+
     while stack:
         current = stack.pop()
         if current in visited:
             continue
         visited.add(current)
         tiles.add(current.pos())
-        
+
         parents = came_from.get(current, [])
         if parents:  # None means start node
             stack.extend(parents)
-    
+
     return tiles
 
 # Usage:
@@ -212,7 +212,7 @@ Performance Notes
 Summary
 -------
 
-Part 1: Looks correct (assuming the heuristic doesn't cause issues — test with 
+Part 1: Looks correct (assuming the heuristic doesn't cause issues — test with
         sample input to confirm).
 
 Part 2: Implementation is broken. You need to:

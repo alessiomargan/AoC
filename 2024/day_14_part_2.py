@@ -1,4 +1,4 @@
-import sys  
+import sys
 sys.path.insert(1, '..')
 from aoc_utils import *
 
@@ -33,7 +33,7 @@ class Robot(namedtuple('Robot','px py vx vy')):
             return 4
         else :
             return None
- 
+
 def move_robots(i,_robots):
     return [r.move(i,maxX,maxY) for r in _robots]
 
@@ -49,7 +49,7 @@ def robots_img(_robots):
         Z[(r.px,r.py)] = 255
     return Image.fromarray(Z)
 
-        
+
 pos_vel = mapt(lambda z: mapt(lambda y: int(y), z), [x[0] for x in [re.findall(regex, line) for line in in_part_A]])
 robots = [Robot(*t) for t in pos_vel]
 M = robots_mat(move_robots(0,robots))

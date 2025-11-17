@@ -19,4 +19,3 @@ up_env:
 # Target to remove the Conda environment
 rm_env:
 	conda env remove -n $(ENV_NAME)
-	

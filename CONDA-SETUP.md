@@ -8,12 +8,12 @@ All containerization (Docker, Codespaces, Dev Containers) now uses conda-based p
 
 ## Why Conda is Default
 
-✅ **Faster builds** - Pre-compiled binaries for all packages  
-✅ **No version conflicts** - Conda resolves dependencies correctly  
-✅ **Python version flexibility** - Works with Python 3.14  
-✅ **System packages included** - graphviz, pygraphviz work out of the box  
-✅ **No pip backtracking** - No 18-minute dependency resolution  
-✅ **Reliable** - Tested package combinations from conda-forge  
+✅ **Faster builds** - Pre-compiled binaries for all packages
+✅ **No version conflicts** - Conda resolves dependencies correctly
+✅ **Python version flexibility** - Works with Python 3.14
+✅ **System packages included** - graphviz, pygraphviz work out of the box
+✅ **No pip backtracking** - No 18-minute dependency resolution
+✅ **Reliable** - Tested package combinations from conda-forge
 
 ## Quick Start
 
@@ -204,9 +204,9 @@ RUN conda config --set solver libmamba
 
 ## Summary
 
-✅ Conda is now default and recommended  
-✅ Faster, more reliable than pip for this use case  
-✅ All documentation updated  
-✅ Works in Docker, Codespaces, and local dev  
+✅ Conda is now default and recommended
+✅ Faster, more reliable than pip for this use case
+✅ All documentation updated
+✅ Works in Docker, Codespaces, and local dev
 
 The old pip-based setup is no longer maintained but requirements.txt is kept for reference.

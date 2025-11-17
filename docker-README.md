@@ -88,14 +88,14 @@ docker-compose down
 
 ## Features
 
-✅ **Python 3.13** - Via conda-forge channel  
-✅ **Conda environment** - Fast, reliable package management  
-✅ **All dependencies** - numpy, jupyterlab, matplotlib, networkx, pygraphviz, etc.  
-✅ **System libraries** - git, curl for GitHub operations  
-✅ **Volume mounting** - Edit files on host, changes reflect in container  
-✅ **Persistent conda env** - Environment saved between restarts  
-✅ **Persistent AoC data** - Session token mounted from `~/.config/aocd`  
-✅ **Git config** - Your .gitconfig shared for Copilot/GitHub  
+✅ **Python 3.13** - Via conda-forge channel
+✅ **Conda environment** - Fast, reliable package management
+✅ **All dependencies** - numpy, jupyterlab, matplotlib, networkx, pygraphviz, etc.
+✅ **System libraries** - git, curl for GitHub operations
+✅ **Volume mounting** - Edit files on host, changes reflect in container
+✅ **Persistent conda env** - Environment saved between restarts
+✅ **Persistent AoC data** - Session token mounted from `~/.config/aocd`
+✅ **Git config** - Your .gitconfig shared for Copilot/GitHub
 
 ## Customization
 
