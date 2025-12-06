@@ -1,0 +1,21 @@
+name: aoc
+channels:
+  - conda-forge
+dependencies:
+  - python=3.13
+  - numpy
+  - jupyterlab
+  - ipykernel
+  - more-itertools
+  - bigtree
+  - requests
+  - pillow
+  - matplotlib
+  - networkx
+  - pygraphviz
+  - pip
+  - pip:
+    - advent-of-code-data
+    - browser-cookie3
+    - pre-commit
+    - nbstripout
