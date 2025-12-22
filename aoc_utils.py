@@ -105,7 +105,7 @@ def get_adj_cross(i,j,M):
     return adj
 
 
-def get_adj(i,j,M,diag=True) -> dict :
+def get_adj(i: int, j: int, M: np.ndarray, diag=True) -> dict :
     """
      i-1,j-1 | i-1,j | i-1,j+1
     --------------------------
