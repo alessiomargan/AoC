@@ -1,9 +1,10 @@
-name: aoc
+name: aoc_2025
 channels:
   - conda-forge
 dependencies:
   - python=3.13
   - numpy
+  - scipy
   - jupyterlab
   - ipykernel
   - more-itertools

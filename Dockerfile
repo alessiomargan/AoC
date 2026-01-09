@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /workspace
 
 # Copy conda environment file for better caching
-COPY 2024/aoc_env_2024.yml /tmp/environment.yml
+COPY 2025/aoc_env_2025.yml /tmp/environment.yml
 
 # Create conda environment and install packages
 RUN conda env create -f /tmp/environment.yml && \
